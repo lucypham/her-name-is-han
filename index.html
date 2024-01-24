@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Time</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--Music-->
+    <audio id="music" src=""></audio>
+    <div class="music-controls">
+        <div>
+            <img onclick="playMusic();this.classList.toggle('cd-rotate')" class="music" src="images/cd-for-music.png">
+        </div>
+        <div class="music-select">
+            <b>Click the CD to play and pause.<br>Or pick a song below.</b>
+            <label><input name="music" type="radio" value="coffee-shop" checked /> Coffee Shop</label>
+            <label><input name="music" type="radio" value="pizza-parlor" checked /> Pizza Parlor</label>
+        </div>
+    </div>
+
+    <div class="placemat">
+        <div class="grid-item grid-item-e"><img src="images/spoon.png"></div>
+        <div class="grid-item grid-item-a"><img src="images/spinach.png"></div>
+        <div class="grid-item grid-item-b"><img src="images/dried-squid.png"></div>
+        
+        <div class="grid-item grid-item-c">
+            <img class="c1" src="images/cauliflower.png">
+            <img class="c2" src="images/eaten-caultiflower.png">
+        </div>
+
+        <div class="grid-item grid-item-d"><img src="images/salad.png"></div>
+        <div class="grid-item grid-item-f"><img src="images/chopsticks.png"></div>
+        <div class="grid-item grid-item-g"><img src="images/kimchi.png"></div>
+        <div class="grid-item grid-item-h"><img src="images/kimchi-stew.png"></div>
+
+        <div class="grid-item grid-item-i">
+            <img class="i1" src="images/egg.png">
+            <img class="i2" src="images/ant.png">
+        </div>
+
+        <div class="grid-item grid-item-j"><img src="images/rice.png"></div>
+        <div class="grid-item grid-item-k"><img src="images/potato.png"></div>
+    </div>
+
+    <button class="button payment-button" onclick="payNow()">Pay Now</button>
+
+    <div id="pay">
+        <form>
+            <label for="tip">Please leave a tip</label>
+            <input type="text" id="tip">
+            <input class="button" type="submit" value="Submit">
+        </form>
+    </div>
+    <img id="receipt" src="images/han-receipt.png">
+    <div id="pay-overlay"></div>
+ 
+    <script>
+        function payNow() {
+            document.getElementById('pay-overlay').style.display='block';
+            document.getElementById('pay').style.display = "block";
+            document.getElementById('receipt').style.display = "block";
+        }
+
+        var isPlaying = true;
+        function playMusic() {
+            var music = document.getElementById('music');
+            if (!isPlaying){
+                isPlaying=true;
+                music.play();
+            } else {
+                isPlaying=false;
+                music.pause();
+            }
+        }
+
+        const radioButtons = document.querySelectorAll('input[name="music"]');
+        const music = document.getElementById('music');
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function(){
+                const selectMusic = this.value;
+                music.src = `${selectMusic}.mp3`;
+
+                music.load();
+                music.play();
+            });
+        });
+    </script>
+</body>
+</html>
